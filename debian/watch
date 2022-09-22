@@ -1,0 +1,22 @@
+version=4
+opts=filenamemangle=s/.*\/v?([\d\.-]+)\.tar\.gz/node-mime-$1.tar.gz/,\
+dversionmangle=auto,\
+repacksuffix=+dfsg \
+https://github.com/broofa/node-mime/tags .*/archive/v?([\d\.]+)\.(?:tar\.xz|txz|tar\.bz2|tbz2|tar\.gz|tgz|zip) group
+
+# It is not recommended use npmregistry. Please investigate more.
+# Take a look at https://wiki.debian.org/debian/watch/
+opts="searchmode=plain,ctype=nodejs,component=mime-score,pgpmode=none" \
+ https://registry.npmjs.org/mime-score https://registry.npmjs.org/mime-score/-/mime-score-([\d\.]+)@ARCHIVE_EXT@ checksum
+
+opts=\
+ctype=nodejs,\
+component=mime-db,\
+dversionmangle=auto,\
+filenamemangle=s/.*\/v?([\d\.-]+)\.tar\.gz/node-mime-db-$1.tar.gz/ \
+ https://github.com/jshttp/mime-db/tags .*/archive/v?([\d\.]+).tar.gz checksum
+
+# It is not recommended use npmregistry. Please investigate more.
+# Take a look at https://wiki.debian.org/debian/watch/
+opts="searchmode=plain,ctype=nodejs,component=types-mime-db,pgpmode=none" \
+ https://registry.npmjs.org/@types/mime-db https://registry.npmjs.org/@types/mime-db/-/mime-db-([\d\.]+)@ARCHIVE_EXT@ checksum

@@ -1,0 +1,17 @@
+Description: Fix mime-types path
+Author: Xavier Guimard <yadd@debian.org>
+Bug: https://github.com/broofa/node-mime/issues/223
+Forwarded: https://github.com/broofa/node-mime/issues/223
+Last-Update: 2021-01-26
+
+--- a/src/test.js
++++ b/src/test.js
+@@ -1,7 +1,7 @@
+ 'use strict';
+ 
+ const mime = require('..');
+-const mimeTypes = require('../node_modules/mime-types');
++const mimeTypes = require('mime-types');
+ const assert = require('assert');
+ const chalk = require('chalk');
+ const {exec} = require('child_process');

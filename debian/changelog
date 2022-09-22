@@ -1,0 +1,155 @@
+node-mime (2.5.0+dfsg+~cs3.90.0-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 2.5.0+dfsg+~cs3.90.0
+  * Refresh patch
+
+ -- Xavier Guimard <yadd@debian.org>  Tue, 26 Jan 2021 12:58:29 +0100
+
+node-mime (2.4.7+dfsg+~cs3.90.0-1) unstable; urgency=medium
+
+  * Team upload
+  * Declare compliance with policy 4.5.1
+  * Add ctype=nodejs to component(s)
+  * New upstream version 2.4.7+dfsg+~cs3.90.0
+  * Remove debian/nodejs/files: upstream fixed its "files" field
+    (https://github.com/broofa/mime/issues/237)
+
+ -- Xavier Guimard <yadd@debian.org>  Wed, 16 Dec 2020 13:27:23 +0100
+
+node-mime (2.4.5+dfsg+~cs3.90.0-1) unstable; urgency=medium
+
+  * Team upload
+  * Bump debhelper compatibility level to 13
+  * Use dh-sequence-nodejs
+  * Embed @types/mime-db
+  * New upstream version 2.4.5+dfsg+~cs3.90.0 (no other changes)
+
+ -- Xavier Guimard <yadd@debian.org>  Fri, 30 Oct 2020 11:36:13 +0100
+
+node-mime (2.4.5+dfsg+~cs2.46.0-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Remove obsolete fields Contact, Name from debian/upstream/metadata
+    (already present in machine-readable debian/copyright).
+
+  [ Xavier Guimard ]
+  * Declare compliance with policy 4.5.0
+  * Use uscan checksum
+  * Fix install paths (Closes: #962789)
+  * New upstream version 2.4.5+dfsg+~cs2.46.0
+    really: 2.4.5+~1.2.0+~1.44.0
+  * Add "Multi-Arch: foreign"
+
+ -- Xavier Guimard <yadd@debian.org>  Sun, 14 Jun 2020 08:49:25 +0200
+
+node-mime (2.4.4+dfsg-1) unstable; urgency=medium
+
+  * Team upload
+  * Bump debhelper compatibility level to 12
+  * Declare compliance with policy 4.4.1
+  * Add debian/gbp.conf
+  * Switch test and install to pkg-js-tools
+  * Exclude types from import
+  * Build types/* from source
+  * Embed component: mime-score, mime-db:
+    + Enable tests
+    + Install in main nodejs dir
+  * New upstream version 2.4.4+dfsg
+  * Fix "files" field
+  * Fix permissions
+  * Update copyright
+
+ -- Xavier Guimard <yadd@debian.org>  Sun, 20 Oct 2019 22:53:31 +0200
+
+node-mime (2.4.0-1) unstable; urgency=medium
+
+  [ Utkarsh Gupta ]
+  * Team upload
+  * New upstream version 2.4.0
+  * Bump debhelper compatibility level to 11
+  * Bump Standards-Version to 4.3.0 (no changes needed)
+  * Update d/control
+  * Fix URL in d/copyright
+  * Add minimal test
+  * Add upstream test in autopkgtest
+  * Add d/upstream/metadata
+  * Update d/control to add build dependency
+
+  [ Xavier Guimard ]
+  * Replace 00-fix_support_files_location.patch by a link in debian/links
+    (required to enable test)
+  * Add test dependencies in Build-Depends
+  * Fix mime-types path in test (fix-mime-types-path.patch)
+  * Use upstream test
+
+ -- Utkarsh Gupta <guptautkarsh2102@gmail.com>  Tue, 22 Jan 2019 09:41:33 +0100
+
+node-mime (2.3.1-1) unstable; urgency=high
+
+  * New upstream release:
+    - fixes CVE-2017-16138: regular expression denial of service
+      (closes: #901277).
+  * Update install location to separate directory.
+  * Update support files location patch.
+  * Update watch file.
+  * Update Vcs-* fields to Salsa.
+  * Update debhelper level to 11 .
+  * Update Standards-Version to 4.1.4:
+    - change package priority to optional.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 11 Jun 2018 22:37:58 +0000
+
+node-mime (1.3.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Update Standards-Version to 3.9.6 and debhelper level to 9 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 25 Jul 2015 19:37:28 +0000
+
+node-mime (1.2.11-1) unstable; urgency=low
+
+  * New upstream release, modify patch to apply clean.
+  * Add myself to uploaders.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 16 Sep 2013 11:50:41 +0000
+
+node-mime (1.2.10-1) unstable; urgency=low
+
+  * Upstream update
+  * control:
+    + fix Homepage
+    + canonicalize Vcs fields
+    + fix Node.js name in description and add stub.
+  * copyright: add Upstream-Contact, Source fields.
+
+ -- Jérémy Lal <kapouer@melix.org>  Wed, 14 Aug 2013 11:48:50 +0200
+
+node-mime (1.2.9-1) experimental; urgency=low
+
+  [Jérémy Lal]
+  * Upstream update
+  * Copyright:
+    + rename MIT to Expat
+    + set the format url to copyright 1.0 instead of DEP-5
+  * rules: remove unneeded overrides
+  * patches: refreshed, set some DEP-3 headers
+
+  [ David Paleino ]
+  * Added debian/watch
+
+ -- Jérémy Lal <kapouer@melix.org>  Sat, 23 Mar 2013 17:51:05 +0100
+
+node-mime (1.2.4-2) unstable; urgency=low
+
+  * Compliance to Debian Javascript Policy
+
+ -- David Paleino <dapal@debian.org>  Sat, 15 Oct 2011 23:57:14 +0200
+
+node-mime (1.2.4-1) unstable; urgency=low
+
+  * Initial release (Closes: #645181)
+
+ -- David Paleino <dapal@debian.org>  Thu, 13 Oct 2011 12:54:34 +0200

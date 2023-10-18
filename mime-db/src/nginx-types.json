@@ -74,6 +74,9 @@
   "application/vnd.wap.wmlc": {
     "extensions": ["wmlc"]
   },
+  "application/wasm": {
+    "extensions": ["wasm"]
+  },
   "application/x-7z-compressed": {
     "extensions": ["7z"]
   },
@@ -148,6 +151,9 @@
   },
   "font/woff2": {
     "extensions": ["woff2"]
+  },
+  "image/avif": {
+    "extensions": ["avif"]
   },
   "image/gif": {
     "extensions": ["gif"]

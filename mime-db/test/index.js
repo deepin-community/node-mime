@@ -2,6 +2,7 @@
 var assert = require('assert')
 var fs = require('fs')
 var join = require('path').join
+var typer = require('media-typer')
 
 var db = require('..')
 
@@ -21,10 +22,10 @@ describe('mime-db', function () {
     })
   })
 
-  it('should all be mime types', function () {
-    assert(Object.keys(db).every(function (name) {
-      return ~name.indexOf('/') || console.log(name)
-    }))
+  it('should contain only vlaid mime types', function () {
+    Object.keys(db).forEach(function (mime) {
+      assert.ok(typer.test(mime), 'type "' + mime + '" is a valid mime type')
+    })
   })
 
   it('should not have any uppercased letters in names', function () {
@@ -53,6 +54,14 @@ describe('mime-db', function () {
       if (!mime.extensions) return true
       return mime.extensions.length
     }))
+  })
+
+  it('should have only lowercase .extensions', function () {
+    Object.keys(db).forEach(function (name) {
+      (db[name].extensions || []).forEach(function (ext) {
+        assert.strictEqual(ext, ext.toLowerCase(), 'extension "' + ext + '" in type "' + name + '" should be lowercase')
+      })
+    })
   })
 
   it('should have the default .extension as the first', function () {

@@ -13,7 +13,6 @@
   },
   "application/ecmascript": {
     "compressible": true,
-    "extensions": ["es"],
     "sources": [
       "http://tools.ietf.org/rfc/rfc4329.txt",
       "http://www.iana.org/assignments/media-types/application/ecmascript"
@@ -80,8 +79,6 @@
   },
   "application/manifest+json": {
     "charset": "UTF-8",
-    "compressible": true,
-    "extensions": ["webmanifest"],
     "sources": [
       "http://w3c.github.io/manifest/#h-media-type-registration"
     ]
@@ -250,8 +247,6 @@
   },
   "application/wasm": {
     "compressible": true,
-    "extensions": ["wasm"],
-    "notes": "WebAssembly module",
     "sources": [
       "https://webassembly.github.io/spec/core/binary/conventions.html"
     ]
@@ -296,6 +291,27 @@
     "extensions": ["php"],
     "sources": [
       "http://php.net/manual/en/faq.installation.php"
+    ]
+  },
+  "application/x-iwork-keynote-sffkey": {
+    "extensions": ["key"],
+    "notes": "Deprecated alias for iWorks Keynote file",
+    "sources": [
+      "https://www.iana.org/assignments/media-types/application/vnd.apple.keynote"
+    ]
+  },
+  "application/x-iwork-numbers-sffnumbers": {
+    "extensions": ["numbers"],
+    "notes": "Deprecated alias for iWorks Numbers file",
+    "sources": [
+      "https://www.iana.org/assignments/media-types/application/vnd.apple.numbers"
+    ]
+  },
+  "application/x-iwork-pages-sffpages": {
+    "extensions": ["pages"],
+    "notes": "Deprecated alias for iWorks Pages file",
+    "sources": [
+      "https://www.iana.org/assignments/media-types/application/vnd.apple.pages"
     ]
   },
   "application/x-java-jnlp-file": {
@@ -451,6 +467,12 @@
   "audio/3gpp": {
     "compressible": false,
     "extensions": ["3gpp"]
+  },
+  "audio/amr": {
+    "extensions": ["amr"],
+    "sources": [
+      "https://tools.ietf.org/html/rfc4867"
+    ]
   },
   "audio/basic": {
     "compressible": false
@@ -611,7 +633,15 @@
   "image/vnd.adobe.photoshop": {
     "compressible": true
   },
+  "image/vnd.microsoft.icon": {
+    "notes": "Alias for image/x-icon which is compressible",
+    "compressible": true,
+    "sources": [
+      "https://www.iana.org/assignments/media-types/image/vnd.microsoft.icon"
+    ]
+  },
   "image/vnd.ms-dds" : {
+    "compressible": true,
     "extensions": ["dds"],
     "notes": "Microsoft format for storing graphical textures and cubemaps. Used in 3d engines, such as Babylon.js.",
     "sources": [
@@ -846,6 +876,7 @@
     "compressible": true
   },
   "text/yaml": {
+    "compressible": true,
     "extensions": ["yaml","yml"]
   },
   "video/mp4": {

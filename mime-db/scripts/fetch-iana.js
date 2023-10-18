@@ -1,3 +1,9 @@
+/*!
+ * mime-db
+ * Copyright(c) 2014 Jonathan Ong
+ * Copyright(c) 2015-2022 Douglas Christopher Wilson
+ * MIT Licensed
+ */
 
 /**
  * Convert the IANA definitions from CSV to local.
@@ -18,7 +24,6 @@ var leadingSpacesRegExp = /^\s+/
 var listColonRegExp = /:(?:\s|$)/m
 var nameWithNotesRegExp = /^(\S+)(?: - (.*)$| \((.*)\)$|)/
 var mimeTypeLineRegExp = /^(?:\s*|[^:\s-]*\s+)(?:MIME type(?: name)?|MIME media type(?: name)?|Media type(?: name)?|Type name)\s?:\s+(.*)$/im
-var mimeSubtypeLineRegExp = /^[^:\s-]*\s*(?:MIME |Media )?subtype(?: name)?\s?:\s+(?:[a-z]+ Tree\s+(?:- ?)?|(?:[a-z]+ )+- )?([^([\r\n]*).*$/im
 var mimeSubtypesLineRegExp = /^[^:\s-]*\s*(?:MIME |Media )?subtype(?: names)?\s?:\s+(?:[a-z]+ Tree\s+(?:- ?)?)?(.*)$/im
 var rfcReferenceRegExp = /\[(RFC[0-9]{4})]/gi
 var slurpModeRegExp = /^\s{0,3}(?:[1-4]\. )?[a-z]{4,}(?: [a-z]{4,})+(?:s|\(s\))?\s*:\s*/i
@@ -27,20 +32,21 @@ var trimQuotesRegExp = /^"|"$/gm
 var urlReferenceRegExp = /\[(https?:\/\/[^\]]+)]/gi
 
 var CHARSET_DEFAULT_REGEXP = /(?:\bcharset\b[^.]*(?:\.\s+default\s+(?:value\s+)?is|\bdefault[^.]*(?:of|is)|\bmust\s+have\s+the\s+value|\bvalue\s+must\s+be)\s+|\bcharset\s*\(?defaults\s+to\s+|\bdefault\b[^.]*?\bchar(?:set|act[eo]r\s+set)\b[^.]*?(?:of|is)\s+|\bcharset\s+(?:must|is)\s+always\s+(?:be\s+)?)["']?([a-z0-9]+-[a-z0-9-]+)/im
-var EXTENSIONS_REGEXP = /(?:^\s*(?:\d\.\s+)?|\s+[23]\.\s+)[Ff]ile [Ee]xtension(?:\(s\)|s|)\s?:\s+(?:\*\.|\.|)([0-9a-z_-]+|[0-9A-Z_-]+)(?:\s*\(|\s*[34]\.\s+|\s+[A-Z]|$)/m
+var EXTENSIONS_REGEXP = /(?:^\s*(?:\d\.\s+)?|\s+[23]\.\s+)[Ff]ile [Ee]xtension(?:\(s\)|s|)\s?:\s+(?:\*\.|\.|)([0-9a-z_-]+|[0-9A-Z_-]+)(?:\s+or\s+(?:\*\.|\.|)([0-9a-z_-]+|[0-9A-Z_-]+)\s*)?(?:\s*[34]\.\s+|\s+[A-Z(]|\s*$)/m
+var MIME_SUBTYPE_LINE_REGEXP = /^[^:\s-]*\s*(?:MIME )?(?:[Mm]edia )?(?:[Ss]ub ?type|SUB ?TYPE)(?: (?:[Nn]ame|NAME))?\s*:\s+(?:[A-Za-z]+ [Tt]ree\s+(?:- ?)?|(?:[a-z]+ )+- )?([0-9A-Za-z][0-9A-Za-z_.+-]*)(?:\s|$)/m
 var MIME_TYPE_HAS_CHARSET_PARAMETER_REGEXP = /parameters\s*:[^.]*\bcharset\b/im
 
 co(function * () {
   var gens = yield [
-    get('application', { extensions: /(?:\/(?:gzip|ld\+json|n-quads|n-triples|vnd\.apple\..+|vnd\.dbf|vnd\.rar)|\+xml)$/ }),
+    get('application', { extensions: /(?:\/(?:ecmascript|express|gzip|(?:ld|manifest)\+json|n-quads|n-triples|pgp-.+|trig|vnd\.(?:age|apple\..+|dbf|mapbox-vector-tile|rar))|\+xml)$/ }),
     get('audio', { extensions: /\/mobile-xmf$/ }),
     get('font', { extensions: true }),
     get('image', { extensions: true }),
     get('message', { extensions: true }),
     get('model', { extensions: true }),
     get('multipart'),
-    get('text', { extensions: /\/(?:spdx|turtle|vtt)$/ }),
-    get('video')
+    get('text', { extensions: /\/(?:spdx|turtle|vnd\.familysearch\.gedcom|vtt)$/ }),
+    get('video', { extensions: /\/iso\.segment$/ })
   ]
 
   // flatten generators
@@ -55,6 +61,15 @@ co(function * () {
   // flatten results
   results = results.reduce(concat, [])
 
+  // gather extension frequency
+  var exts = Object.create(null)
+  results.forEach(function (result) {
+    (result.extensions || []).forEach(function (ext) {
+      exts[ext] = (exts[ext] || 0) + 1
+    })
+  })
+
+  // construct json map
   var json = Object.create(null)
   results.forEach(function (result) {
     var mime = result.mime
@@ -65,9 +80,14 @@ co(function * () {
 
     json[mime] = {
       charset: result.charset,
-      extensions: result.extensions,
       notes: result.notes,
       sources: result.sources
+    }
+
+    // keep unambigious extensions
+    var extensions = (result.extensions || []).filter(function (ext) { return exts[ext] === 1 })
+    if (extensions.length !== 0) {
+      json[mime].extensions = extensions
     }
   })
 
@@ -147,9 +167,9 @@ function extractIntendedUsage (body) {
 
 function extractTemplateMime (body) {
   var type = mimeTypeLineRegExp.exec(body)
-  var subtype = mimeSubtypeLineRegExp.exec(body)
+  var subtype = MIME_SUBTYPE_LINE_REGEXP.exec(body)
 
-  if (!subtype && (subtype = mimeSubtypesLineRegExp.exec(body)) && !/^[A-Za-z0-9]+$/.test(subtype[1])) {
+  if (!subtype && (subtype = mimeSubtypesLineRegExp.exec(body)) && !/^[A-Za-z0-9.+-]+$/.test(subtype[1])) {
     return
   }
 
@@ -191,16 +211,15 @@ function extractTemplateExtensions (body) {
     return
   }
 
-  var ext = (match[1] || match[2]).toLowerCase()
+  var exts = match
+    .slice(1)
+    .filter(Boolean)
+    .map(function (ext) { return ext.toLowerCase() })
+    .filter(function (ext) { return ext !== 'none' })
 
-  // special-case popular base extensions
-  if (ext === 'xml') {
-    return
-  }
-
-  if (ext !== 'none' && ext !== 'undefined') {
-    return [ext]
-  }
+  return exts.length === 0
+    ? undefined
+    : exts
 }
 
 function * get (type, options) {

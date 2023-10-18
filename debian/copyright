@@ -10,6 +10,13 @@ Copyright: 2010, Benjamin Thomas
            2010, Robert Kieffer
 License: Expat
 
+Files: debian/*
+Copyright: 2011, David Paleino <dapal@debian.org>,
+           2013,  Jérémy Lal <kapouer@melix.org>,
+           2013, Laszlo Boszormenyi (GCS) <gcs@debian.org>
+           2019, Yadd <yadd@debian.org>
+License: Expat
+
 Files: mime-db/*
 Copyright: 2014, Jonathan Ong <me@jongleberry.com>
 License: Expat
@@ -22,14 +29,11 @@ Comment: The upstream distribution does not contain an explicit statement of
  Literary and Artistic Works, it is assumed that all content is copyright by
  its respective authors unless otherwise stated.
 
-Files: debian/*
-Copyright: 2011, David Paleino <dapal@debian.org>,
-           2013,  Jérémy Lal <kapouer@melix.org>,
-           2013, Laszlo Boszormenyi (GCS) <gcs@debian.org>
-           2019, Xavier Guimard <yadd@debian.org>
+Files: types-*
+Copyright: Microsoft Corporation
 License: Expat
 
-Files: types-*
+Files: types-*/*
 Copyright: Microsoft Corporation
 License: Expat
 

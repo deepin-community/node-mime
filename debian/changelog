@@ -1,3 +1,35 @@
+node-mime (3.0.0+dfsg+~cs6.97.2-1) unstable; urgency=medium
+
+  * Team upload
+  * Declare compliance with policy 4.6.2
+  * Embed typescript declarations and repack
+
+ -- Yadd <yadd@debian.org>  Tue, 09 May 2023 21:06:52 +0400
+
+node-mime (3.0.0+dfsg+~cs3.97.1-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 3.0.0+dfsg+~cs3.97.1,
+    updates mime-db from 1.51.0 to 1.52.0
+  * Add test dependency to node-media-typer
+
+ -- Yadd <yadd@debian.org>  Tue, 26 Apr 2022 18:30:12 +0200
+
+node-mime (3.0.0+dfsg+~cs3.96.1-1) unstable; urgency=medium
+
+  * Team upload
+  * Fix GitHub tags regex
+  * Add missing build dependency on dh addon.
+  * Update standards version to 4.6.0, no changes needed.
+  * Fix filenamemangle
+  * Update nodejs dependency to nodejs:any
+  * Mark test dependencies with <!nocheck>
+  * New upstream version 3.0.0+dfsg+~cs3.96.1, updates:
+    + mime 3.0.0
+    + mime-db 1.51.0
+
+ -- Yadd <yadd@debian.org>  Sun, 02 Jan 2022 10:07:27 +0100
+
 node-mime (2.5.0+dfsg+~cs3.90.0-1) unstable; urgency=medium
 
   * Team upload

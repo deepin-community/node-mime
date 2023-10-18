@@ -1,7 +1,8 @@
 {
     "name": "@types/mime-db",
-    "version": "1.43.0",
+    "version": "1.43.1",
     "description": "TypeScript definitions for mime-db",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/mime-db",
     "license": "MIT",
     "contributors": [
         {
@@ -29,6 +30,6 @@
     },
     "scripts": {},
     "dependencies": {},
-    "typesPublisherContentHash": "a8bc45dca2b848135fd7b789a960a592abff3864700916e961a97762a5bb14ac",
-    "typeScriptVersion": "2.8"
+    "typesPublisherContentHash": "be18a3ce3c8a68d8f2e19a6414ce5e54d4bfa96fc226424e2a95d912f1a064bb",
+    "typeScriptVersion": "3.6"
 }
